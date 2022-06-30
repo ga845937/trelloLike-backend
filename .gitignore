@@ -1,4 +1,3 @@
-node_nodules
+node_modules
 config
-package-lock.json
 swagger.json
