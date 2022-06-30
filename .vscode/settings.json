@@ -2,14 +2,14 @@
     "editor.formatOnSave": true,
     "eslint.format.enable": true,
     "editor.codeActionsOnSave": {
-      "source.fixAll":true,
-      "source.fixAll.eslint": true
+        "source.fixAll": true,
+        "source.fixAll.eslint": true
     },
     "[json]": {
-        "editor.defaultFormatter": "HookyQR.beautify"
+        "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[javascript]": {
-        "editor.defaultFormatter": "HookyQR.beautify"
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "eslint.validate": [
         "javascript"

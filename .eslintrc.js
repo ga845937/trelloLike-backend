@@ -13,6 +13,7 @@ module.exports = {
         "ecmaVersion": "latest"
     },
     "rules": {
+        "camelcase": "error",
         "no-unused-vars": "error",
         "no-var": "error",
         "no-empty-function": "error",
