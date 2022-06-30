@@ -3,9 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "autogen": "node ./swagger.js"
+    "dev": "node ./bin/www",
+    "lint": "eslint ./"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ga845937/trelloLike-backend"
+  },
+  "author": "Kuo",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -19,10 +24,10 @@
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
-    "eslint": "^8.18.0"
+    "eslint": "^8.18.0",
+    "eslint-config-google": "^0.14.0"
   },
   "main": "app.js",
-  "author": "",
   "license": "ISC",
   "description": ""
 }
