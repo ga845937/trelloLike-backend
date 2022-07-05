@@ -1,36 +1,44 @@
-const swaggerAutogen = require("swagger-autogen")();
-const swaggerUI = require("swagger-ui-express");
-const swaggerFile = "../swagger.json"; // 輸出的文件名稱
-const endpointsFiles = ["./src/app.js"]; // 要指向的 API，通常使用 Express 直接指向到 app.js 就可以
-swaggerAutogen(swaggerFile, endpointsFiles); // swaggerAutogen 的方法
-
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const cors = require("cors");
+const env = require("./env");
+
+const mainRoute = require("./routes/mainRoute");
+const usersRoute = require("./routes/users");
 const app = express();
 
-app.use("/swagger", swaggerUI.serve, swaggerUI.setup(swaggerFile));
+const swaggerFile = require("../swagger.json");
+const swaggerUI = require("swagger-ui-express");
+const swaggerUiOptions = {
+    //customCss: "#header {display: none}"
+};
+
+app.use("/api-doc/list", swaggerUI.serve, swaggerUI.setup(swaggerFile, swaggerUiOptions));
+
 app.use(helmet());
+app.use(cors());
+app.options("*", cors());
 app.use(express.json());
-app.use(express.urlencoded({
-    extended: false
-}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/main", mainRoute);
+app.use("/users", usersRoute);
 
 // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+const resModel = require("./models/resModel");
+app.use((err, req, res, next) => {
+    console.error(err);
+    const resData = new resModel(null, err.code || 99);
+    res.json(resData);
+    next();
+});
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
+const port = env.httpServerPort;
+app.listen(port, () => {
+    console.log(`Server Running: http://localhost:${port}`);
+    console.log(`Swagger URL: http://localhost:${port}/api-doc/list`);
+});
 
 module.exports = app;

@@ -13,6 +13,8 @@ module.exports = {
         "ecmaVersion": "latest"
     },
     "rules": {
+        "prefer-const": "error",
+        "prefer-arrow-callback": "error",
         "camelcase": "error",
         "no-unused-vars": "error",
         "no-var": "error",
@@ -26,8 +28,8 @@ module.exports = {
             }
         ],
         "curly": "error",
-        "brace-style": ["error", "stroustrup"],
-        "eqeqeq": "error",
+        "brace-style": ["error", "1tbs"],
+        "eqeqeq": ["error", "always"],
         "quotes": ["error", "double"],
         "semi": ["error", "always"],
         "dot-notation": ["error"]

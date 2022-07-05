@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node ./bin/www",
+    "swagger": "node ./swagger.js",
     "lint": "eslint ./"
   },
   "repository": {
@@ -13,7 +14,7 @@
   "author": "Kuo",
   "dependencies": {
     "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
+    "cors": "^2.8.5",
     "express": "~4.16.1",
     "helmet": "^5.1.0",
     "jsonwebtoken": "^8.5.1",
@@ -24,8 +25,7 @@
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
-    "eslint": "^8.18.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint": "^8.18.0"
   },
   "main": "app.js",
   "license": "ISC",
