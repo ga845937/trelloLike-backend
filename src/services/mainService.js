@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const mainDao = require("../daos/mainDao");
-const env = require("../env");
+const env = require("../../env");
 const resModel = require("../models/resModel");
 
 module.exports.genLoginInfo = async function () {

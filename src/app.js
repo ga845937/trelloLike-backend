@@ -2,7 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const cors = require("cors");
-const env = require("./env");
+const env = require("../env");
 
 const mainRoute = require("./routes/mainRoute");
 const usersRoute = require("./routes/users");

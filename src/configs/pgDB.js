@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-const env = require("../env");
+const env = require("../../env");
 
 const connPgOptions = {
     host: env.connPgHost,

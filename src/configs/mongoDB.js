@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const env = require("../env");
+const env = require("../../env");
 const mongoSchema = require("../models/mongoSchema");
 
 const connMongo = mongoose.createConnection(

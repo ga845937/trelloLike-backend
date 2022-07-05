@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const env = require("../env");
+const env = require("../../env");
 const errModel = require("../models/errModel");
 const resModel = require("../models/resModel");
 const connMongo = require("../configs/mongoDB");
