@@ -1,9 +1,9 @@
-const connMongo = require("../configs/mongoDB");
+const mongoModel = require("../configs/mongoDB");
 const errModel = require("../models/errModel");
 
 module.exports.saveNewUser = function () {
     return new Promise((resolve, reject) => {
-        const uesrDoc = new connMongo.userModel({
+        const uesrDoc = new mongoModel.user({
             userInfo: {
                 name: "JayKuo",
                 age: 28

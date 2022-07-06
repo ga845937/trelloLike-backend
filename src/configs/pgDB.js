@@ -1,4 +1,5 @@
 const Sequelize = require("sequelize");
+const initModels = require("../models/pg/init-models");
 const env = require("../../env");
 
 const connPgOptions = {
@@ -13,10 +14,13 @@ const connPgOptions = {
     }
 };
 
-const pgDB = new Sequelize(
+const sequelizeOption = new Sequelize(
     env.connPgDatabase,
     env.connPgUserName,
     env.connPgPassword,
     connPgOptions);
 
-module.exports = pgDB;
+module.exports = {
+    sequelizeOption: sequelizeOption,
+    pgModel: initModels(sequelizeOption)
+};
