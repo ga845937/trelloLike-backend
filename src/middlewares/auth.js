@@ -8,12 +8,13 @@ module.exports.authJWT = async function (req, res, next) {
     const reqJWT = req.headers.authorization;
 
     if (reqJWT === undefined) {
-        throw new errModel(2);
+        const resData = new resModel(null, 2);
+        return res.json(resData);
     }
 
     try {
         const decodeJWT = jwt.verify(reqJWT, env.jwtSecret);
-        const userDoc = await connMongo.userModel.findOne({ _id: decodeJWT._id });
+        const userDoc = await connMongo.user.findOne({ _id: decodeJWT._id });
         if (userDoc === null) {
             const resData = new resModel(null, 2);
             return res.json(resData);
