@@ -8,7 +8,7 @@ module.exports.authJWT = async function (req, res, next) {
         const reqJWT = req.headers.authorization;
 
         if (reqJWT === undefined) {
-            throw new errModel(2, "¨S¦³¶Ç¤JJWT");
+            throw new errModel(2, "æœªå‚³å…¥JWT");
         }
 
         const decodeJWT = jwt.verify(reqJWT, env.jwtSecret);
@@ -16,7 +16,7 @@ module.exports.authJWT = async function (req, res, next) {
         const userDoc = await mongoModel.User.findOne({ _id: decodeJWT._id });
 
         if (userDoc === null) {
-            throw new errModel(2, "JTW¤w¥¢®Ä");
+            throw new errModel(2, "JTWå·²å¤±æ•ˆ");
         }
         req.userInfo = userDoc.userInfo.toJSON();
         next();
