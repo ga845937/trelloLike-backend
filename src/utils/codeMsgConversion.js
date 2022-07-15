@@ -2,6 +2,7 @@ const codeStatusConversion = Object.freeze({
     "0": "Success",
     "1": "JwtSaveError",
     "2": "JwtAuthFail",
+    "3": "ParamsError",
     "98": "TestAsyncReject",
     "99": "Uncaught"
 });
@@ -9,6 +10,7 @@ const codeStatusConversion = Object.freeze({
 const statusMsgConversion = Object.freeze({
     "Success": "成功",
     "JwtAuthFail": "jwt Token 驗證失敗",
+    "ParamsError": "參數錯誤",
     "TestAsyncReject": "測試Async Reject",
     "Uncaught": "未定義的錯誤",
 });

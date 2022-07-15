@@ -1,13 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mainService = require("../services/mainService");
-const authMiddleware = require("../middlewares/auth");
 
 router.get("/login", async (req, res, next) => {
-  /* 
-    #swagger.summary = "登入"
-    #swagger.description = "登入"	
-  */
   try {
     const b = await mainService.genLoginInfo();
     console.log(b);
@@ -15,25 +10,37 @@ router.get("/login", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+  /* 
+    #swagger.summary = "登入"
+    #swagger.description = "登入"	
+    #swagger.tags = ['main']
+    #swagger.produces = ["application/json"]
+    #swagger.responses[200] = {
+      description: "成功",
+      schema: { $ref: "#/components/schemas/resSchema" }
+    }
+  */
 });
 
-router.get("/test", [authMiddleware.authJWT], async (req, res, next) => {
+router.get("/test", async (req, res, next) => {
   /* 
     #swagger.summary = "test"
     #swagger.description = "test"	
+    #swagger.tags = ['main']
     #swagger.security = [{
             "jwt": []
     }] 
+    #swagger.produces = ["application/json"]
     #swagger.parameters["name"] = {
-        in: "query",
-        description: "User Name.",
-        required: true,
-        type: "String"
+      required: true,
+      in: "query",
+      description: "User Name.",
+      type: "string"
     }
     #swagger.parameters["age"] = {
       in: "query",
       description: "User Age.",
-      type: "Number"
+      type: "number"
     }
   */
   try {
@@ -44,13 +51,21 @@ router.get("/test", [authMiddleware.authJWT], async (req, res, next) => {
   }
 });
 
-router.post("/test", [authMiddleware.authJWT], async (req, res, next) => {
+router.post("/test", async (req, res, next) => {
   /* 
     #swagger.summary = "test"
     #swagger.description = "test"	
+    #swagger.tags = ['main']
     #swagger.security = [{
             "jwt": []
     }] 
+    #swagger.produces = ["application/json"]
+    #swagger.parameters["loginCount"] = {
+      required: true,
+      in: "query",
+      description: "loginCount",
+      type: "string"
+    }
     #swagger.requestBody = {
       required: true,
       "@content" : {

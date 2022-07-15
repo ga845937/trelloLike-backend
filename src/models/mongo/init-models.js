@@ -1,10 +1,10 @@
 const _user = require("./user");
 
 function initModels(mongoose) {
-    const user = _user(mongoose);
+    const User = _user(mongoose);
 
     return {
-        user
+        User
     };
 }
 

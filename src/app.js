@@ -5,7 +5,7 @@ const cors = require("cors");
 const env = require("../env");
 
 const mainRoute = require("./routes/mainRoute");
-const usersRoute = require("./routes/users");
+const listRoute = require("./routes/listRoute");
 const app = express();
 
 const swaggerFile = require("../swagger.json");
@@ -24,11 +24,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/main", mainRoute);
-app.use("/users", usersRoute);
+app.use("/list", listRoute);
 
 // error handler
 const resModel = require("./models/resModel");
 app.use((err, req, res, next) => {
+    if (err.realMsg) {
+        console.error(err.realMsg);
+    }
     console.error(err);
     const resData = new resModel(null, err.code || 99);
     res.json(resData);
