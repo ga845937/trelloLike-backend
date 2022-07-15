@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  return card.init(sequelize, DataTypes);
+  return Card.init(sequelize, DataTypes);
 };
 
-class card extends Sequelize.Model {
+class Card extends Sequelize.Model {
   static init(sequelize, DataTypes) {
     return super.init({
       id: {
@@ -12,13 +12,14 @@ class card extends Sequelize.Model {
         allowNull: false,
         primaryKey: true
       },
-      list_id: {
+      listId: {
         type: DataTypes.INTEGER,
         allowNull: true,
         references: {
           model: "list",
           key: "id"
-        }
+        },
+        field: "list_id"
       },
       name: {
         type: DataTypes.STRING(50),
@@ -28,9 +29,10 @@ class card extends Sequelize.Model {
         type: DataTypes.STRING(1000),
         allowNull: true
       },
-      position_no: {
+      positionNo: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        field: "position_no"
       },
       archive: {
         type: DataTypes.BOOLEAN,
@@ -46,13 +48,15 @@ class card extends Sequelize.Model {
         type: DataTypes.STRING(1),
         allowNull: false
       },
-      start_date: {
+      startDate: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: true,
+        field: "start_date"
       },
-      end_date: {
+      endDate: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: true,
+        field: "end_date"
       }
     }, {
       sequelize,

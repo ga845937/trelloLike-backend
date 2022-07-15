@@ -12,14 +12,14 @@ function initModels(sequelize) {
   const List = _List(sequelize, DataTypes);
   const Todolist = _Todolist(sequelize, DataTypes);
 
-  Active.belongsTo(Card, { as: "card", foreignKey: "cardId" });
-  Card.hasMany(Active, { as: "actives", foreignKey: "cardId" });
-  Label.belongsTo(Card, { as: "card", foreignKey: "cardId" });
-  Card.hasMany(Label, { as: "labels", foreignKey: "cardId" });
-  Todolist.belongsTo(Card, { as: "card", foreignKey: "cardId" });
-  Card.hasMany(Todolist, { as: "todolists", foreignKey: "cardId" });
-  Card.belongsTo(List, { as: "list", foreignKey: "listId" });
-  List.hasMany(Card, { as: "cards", foreignKey: "listId" });
+  Active.belongsTo(Card, { as: "card", foreignKey: "cardId"});
+  Card.hasMany(Active, { as: "actives", foreignKey: "cardId"});
+  Label.belongsTo(Card, { as: "card", foreignKey: "cardId"});
+  Card.hasMany(Label, { as: "labels", foreignKey: "cardId"});
+  Todolist.belongsTo(Card, { as: "card", foreignKey: "cardId"});
+  Card.hasMany(Todolist, { as: "todolists", foreignKey: "cardId"});
+  Card.belongsTo(List, { as: "list", foreignKey: "listId"});
+  List.hasMany(Card, { as: "cards", foreignKey: "listId"});
 
   return {
     Active,

@@ -1,8 +1,6 @@
-const mongoModel = require("../configs/mongoDB");
-
-const errModel = require("../models/errModel");
-const resModel = require("../models/resModel");
 const { pgModel } = require("../configs/pgDB");
+const mongoModel = require("../configs/mongoDB");
+const errModel = require("../models/errModel");
 
 /**
  * List列表新增
@@ -14,7 +12,7 @@ module.exports.insertNewList = function (data) {
         const Newlist = pgModel.list.create({
             account: data.account,
             name: data.name,
-            position_no: data.position_no,
+            positionNo: data.position_no,
             archive: data.archive
         });
 
@@ -25,7 +23,7 @@ module.exports.insertNewList = function (data) {
                     "名稱": data.name,
                     "位置": data.position_no,
                     "封存": data.archive
-                    });
+                });
             } else {
                 return reject(new errModel(50));
             }
