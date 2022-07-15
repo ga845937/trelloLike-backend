@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mainService = require("../services/mainService");
-const authMiddleware = require("../middlewares/auth");
+const { authJWT } = require("../middlewares/jwt");
 
 router.get("/login", async (req, res, next) => {
   /* 
@@ -17,7 +17,7 @@ router.get("/login", async (req, res, next) => {
   }
 });
 
-router.get("/test", [authMiddleware.authJWT], async (req, res, next) => {
+router.get("/test", [authJWT], async (req, res, next) => {
   /* 
     #swagger.summary = "test"
     #swagger.description = "test"	
@@ -111,7 +111,7 @@ router.post("/insertList", async (req, res, next) => {
   }
 });
 
-router.post("/test", [authMiddleware.authJWT], async (req, res, next) => {
+router.post("/test", [authJWT], async (req, res, next) => {
   /* 
     #swagger.summary = "test"
     #swagger.description = "test"	
