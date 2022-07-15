@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const mainService = require("../services/mainService");
+const authMiddleware = require("../middlewares/auth");
 
 router.get("/login", async (req, res, next) => {
+  /* 
+    #swagger.summary = "登入"
+    #swagger.description = "登入"	
+  */
   try {
     const b = await mainService.genLoginInfo();
     console.log(b);
@@ -10,37 +15,25 @@ router.get("/login", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-  /* 
-    #swagger.summary = "登入"
-    #swagger.description = "登入"	
-    #swagger.tags = ['main']
-    #swagger.produces = ["application/json"]
-    #swagger.responses[200] = {
-      description: "成功",
-      schema: { $ref: "#/components/schemas/resSchema" }
-    }
-  */
 });
 
-router.get("/test", async (req, res, next) => {
+router.get("/test", [authMiddleware.authJWT], async (req, res, next) => {
   /* 
     #swagger.summary = "test"
     #swagger.description = "test"	
-    #swagger.tags = ['main']
     #swagger.security = [{
             "jwt": []
     }] 
-    #swagger.produces = ["application/json"]
     #swagger.parameters["name"] = {
-      required: true,
-      in: "query",
-      description: "User Name.",
-      type: "string"
+        in: "query",
+        description: "User Name.",
+        required: true,
+        type: "String"
     }
     #swagger.parameters["age"] = {
       in: "query",
       description: "User Age.",
-      type: "number"
+      type: "Number"
     }
   */
   try {
@@ -51,21 +44,80 @@ router.get("/test", async (req, res, next) => {
   }
 });
 
-router.post("/test", async (req, res, next) => {
+router.get("/queryList", async (req, res, next) => {
   /* 
-    #swagger.summary = "test"
-    #swagger.description = "test"	
-    #swagger.tags = ['main']
+    #swagger.summary = "列表查詢"
+    #swagger.description = "列表查詢測試"	
     #swagger.security = [{
             "jwt": []
     }] 
-    #swagger.produces = ["application/json"]
-    #swagger.parameters["loginCount"] = {
-      required: true,
-      in: "query",
-      description: "loginCount",
-      type: "string"
+    #swagger.parameters["account"] = {
+        in: "query",
+        description: "User Account.",
+        required: true,
+        type: "String"
     }
+  */
+  try {
+    const data = req.body;
+    const queryList = await mainService.queryList(data);
+    res.json(queryList);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/insertList", async (req, res, next) => {
+  /* 
+    #swagger.summary = "列表新增"
+    #swagger.description = "列表新增測試"	
+    #swagger.security = [{
+            "jwt": []
+    }] 
+    #swagger.requestBody = {
+      required: true,
+      "@content" : {
+        "application/json": {
+          schema: {
+            type: "object",
+            properties: {
+                account: {
+                    type: "string"
+                },
+                name: {
+                    type: "string"
+                },
+                position_no: {
+                    type: "number"
+                },
+                archive:{
+                    type: "boolean",
+                    default: "false"
+                }
+            },
+            required: ["account", "name", "position_no"]
+          }
+        }
+      }
+    }
+
+  */
+  try {
+    const data = req.body;
+    const insertList = await mainService.insertList(data);
+    res.json(insertList);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/test", [authMiddleware.authJWT], async (req, res, next) => {
+  /* 
+    #swagger.summary = "test"
+    #swagger.description = "test"	
+    #swagger.security = [{
+            "jwt": []
+    }] 
     #swagger.requestBody = {
       required: true,
       "@content" : {
