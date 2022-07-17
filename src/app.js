@@ -14,7 +14,7 @@ const swaggerUiOptions = {
     //customCss: "#header {display: none}"
 };
 
-app.use("/api-doc/list", swaggerUI.serve, swaggerUI.setup(swaggerFile, swaggerUiOptions));
+app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerFile, swaggerUiOptions));
 
 app.use(helmet());
 app.use(cors());
@@ -41,7 +41,7 @@ app.use((err, req, res, next) => {
 const port = env.httpServerPort;
 app.listen(port, () => {
     console.log(`Server Running: http://localhost:${port}`);
-    console.log(`Swagger URL: http://localhost:${port}/api-doc/list`);
+    console.log(`Swagger URL: http://localhost:${port}/api-doc`);
 });
 
 module.exports = app;

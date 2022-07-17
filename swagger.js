@@ -8,11 +8,13 @@ const swaggerAutogen = require("swagger-autogen")(swaggerAutogenOption);
 const swaggerGenFile = "./swagger.json"; // 輸出的文件名稱
 const endpointsFiles = ["./src/app.js"]; // 要指向的 API，通常使用 Express 直接指向到 app.js 就可以
 const j2s = require("joi-to-swagger");
+const env = require("./env.js");
 
 const doc = {
+    host: `${env.httpServerHost}:${env.httpServerPort}`,
     info: {
-        title: "Swagger Title",
-        description: "Swagger Description",
+        title: "TrelloLike",
+        description: "TrelloLike",
     },
     securityDefinitions: {
         jwt: {
@@ -54,9 +56,12 @@ require("fs").readdirSync("./src/models/view").forEach((file) => {
         const fileName = file.replace(".js", "");
         const tmpRequire = require("./src/models/view/" + fileName);
         for (const key in tmpRequire) {
-            const { swagger } = j2s(tmpRequire[key][key + "Joi"]);
+            if (key === "description") {
+                return;
+            }
+            const { swagger } = j2s(tmpRequire[key]);
             for (const schemaKey in swagger.properties) {
-                swagger.properties[schemaKey].Description = tmpRequire[key][key + "Description"][schemaKey];
+                swagger.properties[schemaKey].Description = tmpRequire.description[schemaKey];
             }
             doc.components["@schemas"][key + "Schema"] = swagger;
         }

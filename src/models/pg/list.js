@@ -10,25 +10,30 @@ class List extends Sequelize.Model {
         autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
+        comment: "清單唯一辨識碼",
         primaryKey: true
       },
       account: {
         type: DataTypes.STRING(50),
-        allowNull: false
+        allowNull: false,
+        comment: "帳號"
       },
       name: {
         type: DataTypes.STRING(50),
-        allowNull: false
+        allowNull: false,
+        comment: "清單名稱"
       },
       positionNo: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        comment: "清單位置",
         field: "position_no"
       },
       archive: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
-        defaultValue: false
+        defaultValue: false,
+        comment: "封裝"
       }
     }, {
       sequelize,

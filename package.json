@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint ./",
-    "dev": "node ./bin/www",
+    "dev": "node ./src/app",
     "swagger": "node ./swagger.js",
     "pgModel": "node ./pgModelGen.js"
   },
