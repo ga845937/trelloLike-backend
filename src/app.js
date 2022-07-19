@@ -38,10 +38,11 @@ app.use((err, req, res, next) => {
     next();
 });
 
+const host = env.httpServerHost;
 const port = env.httpServerPort;
 app.listen(port, () => {
-    console.log(`Server Running: http://localhost:${port}`);
-    console.log(`Swagger URL: http://localhost:${port}/api-doc`);
+    console.log(`Server Running: http://${host}:${port}`);
+    console.log(`Swagger URL: http://${host}:${port}/api-doc`);
 });
 
 module.exports = app;

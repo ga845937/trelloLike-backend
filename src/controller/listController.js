@@ -44,7 +44,11 @@ module.exports.createList = async function (req, res, next) {
 
 module.exports.readList = async function (req, res, next) {
     try {
-        const resData = await listService.readList(req.body);
+        const { error: joiErr } = listModel.readList.validate(req.query);
+        if (joiErr) {
+            throw new errModel(3, joiErr.message);
+        }
+        const resData = await listService.readList(req.query);
         res.json(resData);
     } catch (err) {
         next(err);
@@ -75,7 +79,7 @@ module.exports.readList = async function (req, res, next) {
             in: "query",
             type: "boolean",
             description: "封裝"
-        }          
+        }
         #swagger.responses[200] = {
             description: "成功",
             schema: { $ref: "#/components/schemas/resSchema" }
@@ -85,8 +89,12 @@ module.exports.readList = async function (req, res, next) {
 
 module.exports.updateList = async function (req, res, next) {
     try {
-        console.log(req.body);
-        res.json();
+        const { error: joiErr } = listModel.updateList.validate(req.query);
+        if (joiErr) {
+            throw new errModel(3, joiErr.message);
+        }
+        const resData = await listService.updateList(req.query);
+        res.json(resData);
     } catch (err) {
         next(err);
     }
@@ -97,6 +105,27 @@ module.exports.updateList = async function (req, res, next) {
         #swagger.security = [{
             "jwt": []
         }]
+        #swagger.parameters["id"] = {
+            in: "query",
+            required: true,
+            type: "string",
+            description: "唯一辨識碼"
+        }
+        #swagger.parameters["name"] = {
+            in: "query",
+            type: "string",
+            description: "清單名稱"
+        }
+        #swagger.parameters["positionNo"] = {
+            in: "query",
+            type: "integer",
+            description: "清單位置"
+        }
+        #swagger.parameters["archive"] = {
+            in: "query",
+            type: "boolean",
+            description: "封裝"
+        }
         #swagger.responses[200] = {
             description: "成功",
             schema: { $ref: "#/components/schemas/resSchema" }
@@ -106,8 +135,12 @@ module.exports.updateList = async function (req, res, next) {
 
 module.exports.deleteList = async function (req, res, next) {
     try {
-        console.log(req.query);
-        res.json();
+        const { error: joiErr } = listModel.deleteList.validate(req.query);
+        if (joiErr) {
+            throw new errModel(3, joiErr.message);
+        }
+        const resData = await listService.deleteList(req.query);
+        res.json(resData);
     } catch (err) {
         next(err);
     }

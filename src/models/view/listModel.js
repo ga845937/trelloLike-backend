@@ -15,6 +15,17 @@ const readList = joi.object().keys({
     archive: joi.boolean()
 });
 
+const updateList = joi.object().keys({
+    id: joi.number().integer().positive().required(),
+    name: joi.string().max(50),
+    positionNo: joi.number().integer().positive(),
+    archive: joi.boolean().default(false)
+});
+
+const deleteList = joi.object().keys({
+    id: joi.number().integer().positive().required()
+});
+
 const description = {};
 const listAttributes = pgModel.List.getAttributes();
 for (const key in listAttributes) {
@@ -24,5 +35,7 @@ for (const key in listAttributes) {
 module.exports = {
     createList,
     readList,
+    updateList,
+    deleteList,
     description
 };

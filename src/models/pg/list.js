@@ -15,7 +15,7 @@ class List extends Sequelize.Model {
       },
       account: {
         type: DataTypes.STRING(50),
-        allowNull: false,
+        allowNull: true,
         comment: "帳號"
       },
       name: {
