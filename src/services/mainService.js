@@ -8,3 +8,8 @@ module.exports.genLoginInfo = async function () {
     const jwtToken = jwt.sign({ "_id": _id }, env.jwtSecret);
     return new resModel(jwtToken);
 };
+
+module.exports.mainData = async function () {
+    const res = await mainDao.mainData();
+    return new resModel(res);
+};

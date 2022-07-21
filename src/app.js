@@ -6,6 +6,7 @@ const env = require("../env");
 
 const mainRoute = require("./routes/mainRoute");
 const listRoute = require("./routes/listRoute");
+const cardRoute = require("./routes/cardRoute");
 const app = express();
 
 const swaggerFile = require("../swagger.json");
@@ -25,6 +26,7 @@ app.use(cookieParser());
 
 app.use("/main", mainRoute);
 app.use("/list", listRoute);
+app.use("/card", cardRoute);
 
 // error handler
 const resModel = require("./models/resModel");

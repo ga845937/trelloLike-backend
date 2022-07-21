@@ -1,29 +1,37 @@
 const joi = require("joi");
 const { pgModel } = require("../../configs/pgDB");
 
+//#region public joiSchema
+const id = joi.number().integer().positive().required();
+const account = joi.string().max(50);
+const name = joi.string().max(50);
+const positionNo = joi.number().integer().positive();
+const archive = joi.boolean().default(false);
+// #endregion public joiSchema
+
 const createList = joi.object().keys({
-    account: joi.string().max(50).required(),
-    name: joi.string().max(50).required(),
-    positionNo: joi.number().integer().positive().required(),
-    archive: joi.boolean().default(false)
+    account,
+    name: name.required(),
+    positionNo,
+    archive
 });
 
 const readList = joi.object().keys({
-    account: joi.string().max(50),
-    name: joi.string().max(50),
-    positionNo: joi.number().integer().positive(),
-    archive: joi.boolean()
+    account,
+    name,
+    positionNo,
+    archive
 });
 
 const updateList = joi.object().keys({
-    id: joi.number().integer().positive().required(),
-    name: joi.string().max(50),
-    positionNo: joi.number().integer().positive(),
-    archive: joi.boolean().default(false)
+    id,
+    name,
+    positionNo,
+    archive
 });
 
 const deleteList = joi.object().keys({
-    id: joi.number().integer().positive().required()
+    id
 });
 
 const description = {};

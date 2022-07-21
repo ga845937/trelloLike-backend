@@ -1,23 +1,23 @@
-const listModel = require("../models/view/listModel");
-const listService = require("../services/listService");
+const cardModel = require("../models/view/cardModel");
+const cardService = require("../services/cardService");
 const errModel = require("../models/errModel");
 
-module.exports.createList = async function (req, res, next) {
+module.exports.createCard = async function (req, res, next) {
     try {
-        const { error: joiErr } = listModel.createList.validate(req.body);
+        const { error: joiErr } = cardModel.createCard.validate(req.body);
         if (joiErr) {
             throw new errModel(3, joiErr.message);
         }
-        const resData = await listService.createList(req.body);
+        const resData = await cardService.createCard(req.body);
         res.json(resData);
     } catch (err) {
         next(err);
     }
 
     /* @swagger comment
-        #swagger.description = "新增List"
-        #swagger.summary = "新增List"
-        #swagger.tags = ['List']
+        #swagger.description = "新增Card"
+        #swagger.summary = "新增Card"
+        #swagger.tags = ['Card']
         #swagger.security = [{
             "jwt": []
         }]
@@ -25,7 +25,7 @@ module.exports.createList = async function (req, res, next) {
             required: true,
             content: {
                 "application/json": {
-                    schema: { $ref: "#/components/schemas/createListSchema" }   
+                    schema: { $ref: "#/components/schemas/createCardSchema" }   
                 }
             }
         }
@@ -36,44 +36,50 @@ module.exports.createList = async function (req, res, next) {
     */
 };
 
-module.exports.readList = async function (req, res, next) {
+module.exports.readCard = async function (req, res, next) {
     try {
-        const { error: joiErr } = listModel.readList.validate(req.query);
+        const { error: joiErr } = cardModel.readCard.validate(req.query);
         if (joiErr) {
             throw new errModel(3, joiErr.message);
         }
-        const resData = await listService.readList(req.query);
+        const resData = await cardService.readCard(req.query);
         res.json(resData);
     } catch (err) {
         next(err);
     }
     /* @swagger comment
-        #swagger.description = "查詢List"
-        #swagger.summary = "查詢List"
-        #swagger.tags = ['List']
+        #swagger.description = "查詢Card"
+        #swagger.summary = "查詢Card"
+        #swagger.tags = ['Card']
         #swagger.security = [{
             "jwt": []
         }]
-        #swagger.parameters["account"] = {
+        #swagger.parameters["listId"] = {
             in: "query",
-            type: "string",
-            description: "帳號"
+            required: true,
+            type: "integer",
+            description: "卡片存在於哪個清單"
         }
         #swagger.parameters["name"] = {
             in: "query",
             type: "string",
-            description: "清單名稱"
+            description: "卡片名稱"
         }
         #swagger.parameters["positionNo"] = {
             in: "query",
             type: "integer",
-            description: "清單位置"
+            description: "卡片位置"
         }
         #swagger.parameters["archive"] = {
             in: "query",
             type: "boolean",
             description: "封裝"
         }
+        #swagger.parameters["status"] = {
+            in: "query",
+            type: "string",
+            description: "卡片狀態"
+        }
         #swagger.responses[200] = {
             description: "成功",
             schema: { $ref: "#/components/schemas/resSchema" }
@@ -81,21 +87,21 @@ module.exports.readList = async function (req, res, next) {
     */
 };
 
-module.exports.updateList = async function (req, res, next) {
+module.exports.updateCard = async function (req, res, next) {
     try {
-        const { error: joiErr } = listModel.updateList.validate(req.body);
+        const { error: joiErr } = cardModel.updateCard.validate(req.body);
         if (joiErr) {
             throw new errModel(3, joiErr.message);
         }
-        const resData = await listService.updateList(req.body);
+        const resData = await cardService.updateCard(req.body);
         res.json(resData);
     } catch (err) {
         next(err);
     }
     /* @swagger comment
-        #swagger.description = "更新List"
-        #swagger.summary = "更新List"
-        #swagger.tags = ['List']
+        #swagger.description = "更新Card"
+        #swagger.summary = "更新Card"
+        #swagger.tags = ['Card']
         #swagger.security = [{
             "jwt": []
         }]
@@ -103,7 +109,7 @@ module.exports.updateList = async function (req, res, next) {
             required: true,
             content: {
                 "application/json": {
-                    schema: { $ref: "#/components/schemas/updateListSchema" }   
+                    schema: { $ref: "#/components/schemas/updateCardSchema" }   
                 }
             }
         }
@@ -114,21 +120,21 @@ module.exports.updateList = async function (req, res, next) {
     */
 };
 
-module.exports.deleteList = async function (req, res, next) {
+module.exports.deleteCard = async function (req, res, next) {
     try {
-        const { error: joiErr } = listModel.deleteList.validate(req.query);
+        const { error: joiErr } = cardModel.deleteCard.validate(req.query);
         if (joiErr) {
             throw new errModel(3, joiErr.message);
         }
-        const resData = await listService.deleteList(req.query);
+        const resData = await cardService.deleteCard(req.query);
         res.json(resData);
     } catch (err) {
         next(err);
     }
     /* @swagger comment
-        #swagger.description = "刪除List"
-        #swagger.summary = "刪除List"
-        #swagger.tags = ['List']
+        #swagger.description = "刪除Card"
+        #swagger.summary = "刪除Card"
+        #swagger.tags = ['Card']
         #swagger.security = [{
             "jwt": []
         }]

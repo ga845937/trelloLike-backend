@@ -1,3 +1,4 @@
+const { pgModel } = require("../configs/pgDB");
 const mongoModel = require("../configs/mongoDB");
 const errModel = require("../models/errModel");
 
@@ -16,5 +17,14 @@ module.exports.saveNewUser = function () {
             }
             resolve(user._id);
         });
+    });
+};
+
+module.exports.mainData = async function () {
+    return await pgModel.List.findAndCountAll({
+        include: {
+            model: pgModel.Card,
+            as: "cards"
+        }
     });
 };

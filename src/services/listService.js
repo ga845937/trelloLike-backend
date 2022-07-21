@@ -12,8 +12,8 @@ module.exports.readList = async function (readData) {
 };
 
 module.exports.updateList = async function (updateData) {
-    const res = await listDao.updateList(updateData);
-    return new resModel(res);
+    await listDao.updateList(updateData);
+    return new resModel();
 };
 
 module.exports.deleteList = async function (id) {

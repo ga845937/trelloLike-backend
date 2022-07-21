@@ -6,7 +6,7 @@ const { authJWT } = require("../middlewares/jwt");
 router.route("/")
   .post(authJWT, listController.createList)
   .get(authJWT, listController.readList)
-  .put(listController.updateList)
-  .delete(listController.deleteList);
+  .put(authJWT, listController.updateList)
+  .delete(authJWT, listController.deleteList);
 
 module.exports = router;

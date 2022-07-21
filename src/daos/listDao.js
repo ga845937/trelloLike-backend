@@ -11,15 +11,12 @@ module.exports.readList = async function (readData) {
 };
 
 module.exports.updateList = async function (updateData) {
+    const { id, ...updateValue } = updateData;
     return await pgModel.List.update(
-        {
-            name: updateData.name,
-            positionNo: updateData.positionNo,
-            archive: updateData.archive
-        },
+        updateValue,
         {
             where: {
-                id: updateData.id
+                id
             }
         }
     );
