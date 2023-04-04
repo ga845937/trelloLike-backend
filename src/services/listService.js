@@ -2,8 +2,8 @@ const resModel = require("../models/resModel");
 const listDao = require("../daos/listDao");
 
 module.exports.createList = async function (createData) {
-    await listDao.createList(createData);
-    return new resModel();
+    const res = await listDao.createList(createData);
+    return new resModel(res.id);
 };
 
 module.exports.readList = async function (readData) {

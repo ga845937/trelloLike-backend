@@ -2,8 +2,8 @@ const resModel = require("../models/resModel");
 const cardDao = require("../daos/cardDao");
 
 module.exports.createCard = async function (createData) {
-    await cardDao.createCard(createData);
-    return new resModel();
+    const res = await cardDao.createCard(createData);
+    return new resModel(res.id);
 };
 
 module.exports.readCard = async function (readData) {
